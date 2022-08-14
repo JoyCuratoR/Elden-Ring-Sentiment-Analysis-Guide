@@ -137,7 +137,7 @@ key_elden_new %>%
         axis.title.y = element_text(face = "bold", colour = "darkgreen"))
 ```
 
-This chart tells us that the word 'game' is the most frequent word in the dataset, with 'boss' and 'bosses' following. Given how we specified for keywords of 'bosses' and 'boss fight' it's no surprise that these words show up near the top.
+This chart tells us that the word 'game' is the most frequent word in the dataset, with 'boss' and 'bosses' following. Given how we specified for keywords of 'boss' and 'boss fight' it's no surprise that these words show up near the top.
 
 ![1](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220808184113.png)
 
