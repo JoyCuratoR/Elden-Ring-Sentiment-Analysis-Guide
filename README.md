@@ -139,7 +139,7 @@ key_elden_new %>%
 
 This chart tells us that the word 'game' is the most frequent word in the dataset, with 'boss' and 'bosses' following. Given how we specified for keywords of 'bosses' and 'boss fight' it's no surprise that these words show up near the top.
 
-![[Pasted image 20220808184113.png]]
+![1](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220808184113.png)
 
 Next, we'll find out the average and median number of comments. 
 
@@ -186,7 +186,7 @@ Unhappy = 52.05 %
 
 Thus, this still results in a majority of Redditors being unhappy with the Elden Ring's bosses.
 
-![[Pasted image 20220808220151.png]]
+![2](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220808220151.png)
 
 
 Moreover, if we wanted to know exactly which individual words contributed the most to the negative and positive scoring, we can use the ``BING`` sentiment lexicon. 
@@ -234,7 +234,7 @@ key_elden_word_counts |>
 
 As we can determine, the word 'damage' contributed the most to the negative score and the word 'fun' contributed the most to the positive score.
 
-![[Pasted image 20220811193950.png]]
+![3](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220811193950.png)
 
 So why didn't we used the already fully cleaned dataset instead of having to tokenize the original, uncleaned dataset, and then re-apply the ``stop_words`` lexicon to it?
 
@@ -258,7 +258,7 @@ So why didn't we used the already fully cleaned dataset instead of having to tok
 
 And the plot will come out to look like this: 
 
-![[Pasted image 20220811191354.png]]
+![]4(https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220811191354.png)
 
 
 
@@ -297,7 +297,7 @@ ggplot(key_elden_pos_neg, aes(x = sentiment, fill = sentiment)) +
 
 When we plot out the results, we can clearly see a big difference between the amount of negative versus positive words used.
 
-![[Pasted image 20220808184004.png]]
+![5](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220808184004.png)
 
 Now let's find the percentage ratio between negative and positive words. 
 
@@ -429,7 +429,7 @@ reddit_elden_new %>%
   theme_wsj()
 ```
 
-![[Pasted image 20220812120716.png]]
+![6](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220812120716.png)
 
 
 ``` r
@@ -459,7 +459,7 @@ bing_word_counts |>
        y = NULL)
 ```
 
-![[Pasted image 20220812121302.png]]
+![7](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220812121302.png)
 
 ### 4.2 Continued
 Next we get into finding the positive and negative sentiment ratio by plotting a bar chart and then calculating the percentages. 
@@ -498,7 +498,7 @@ ggplot(pos_neg, aes(x = sentiment, fill = sentiment)) +
 
 The amount of negative words are almost a couple hundred above positive words.
 
-![[Pasted image 20220811234633.png]]
+![8](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220811234633.png)
 
 Let's calculate the percentage ratio.
 
