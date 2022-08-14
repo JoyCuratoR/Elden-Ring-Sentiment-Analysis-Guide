@@ -4,9 +4,6 @@ library(qdap)
 library(tidyverse)
 library(tidytext)
 library(ggthemes)
-library(wordcloud)
-library(wordcloud2)
-
 
 
 # Step 1: collecting raw data
