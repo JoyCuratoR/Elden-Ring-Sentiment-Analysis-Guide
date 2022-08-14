@@ -68,6 +68,8 @@ colnames(key_elden_new)[1] <- "words"
 
 
 # Step 4: EDA
+
+# 4.1 finding most common words
 key_elden_new %>%
   filter(n > 70) %>% # plotting data
   ggplot(aes(x = reorder(words, + n), y = n)) + # orders from highest to lowest
@@ -80,10 +82,53 @@ key_elden_new %>%
         axis.title.y = element_text(face = "bold", colour = "darkgreen"))
 # https://dk81.github.io/dkmathstats_site/rtext-freq-words.html
 
-# summarising number of comments
+# 4.2 summarising number of comments
 key_reddit_new_data %>%
   summarize(avg_comments = mean(comments), 
             median_comments = median(comments))
+
+# 4.3 NRC lexicon (categorizes words by specific emotion)
+key_elden_new %>%
+  unnest_tokens(output = word, input = words) %>%
+  inner_join(get_sentiments('nrc')) %>%
+  group_by(sentiment) %>%
+  count() %>%
+  # visualizing results
+  ggplot(aes(x = reorder(sentiment, X = n), y = n, fill = sentiment)) +
+  geom_col() +
+  guides(fill = F) +
+  coord_flip() +
+  theme_wsj() +
+  geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") 
+ 
+
+# 4.4 finding the most common pos and neg words and how much each word contributed
+#to the sentiment
+
+key_elden_tidy <- key_reddit_new_data |> # used the og data
+  group_by(text) |>
+  ungroup() |>
+  unnest_tokens(word, text)
+
+key_elden_word_counts <- key_elden_tidy |>
+  inner_join(get_sentiments("bing")) |>
+  count(word, sentiment, sort = T) |>
+  anti_join(custom) |> # applied the custom dict to clean data
+  group_by(sentiment) |>
+  ungroup()
+
+# plotting
+key_elden_word_counts |>
+  group_by(sentiment) |>
+  top_n(10) |>
+  ungroup() |>
+  mutate(word = reorder(word, n)) |>
+  ggplot(aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = F) +
+  geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(x = "Contribution to Sentiment",
+       y = NULL)
 
 
 # Step 5: calculating sentiment
@@ -115,62 +160,4 @@ pos <- (199/total) * 100
 pos
 # -- neg = 61.43% pos = 38.57%
 # -- as of 18th July 2022, we can conclude that Elden Ring's bosses are percieved as more negative than positive by Redditors
-
-
-# 5.2 NRC lexicon (categorizes words by specific emotion)
-key_elden_new %>%
-  unnest_tokens(output = word, input = words) %>%
-  inner_join(get_sentiments('nrc')) %>%
-  group_by(sentiment) %>%
-  count() %>%
-  # visualizing results
-  ggplot(aes(x = reorder(sentiment, X = n), y = n, fill = sentiment)) +
-  geom_col() +
-  guides(fill = F) +
-  coord_flip() +
-  theme_wsj() +
-  geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") 
- 
-
-# 5.3 finding the most common pos and neg words and how much each word contributed
-#to the sentiment
-
-key_elden_tidy <- key_reddit_new_data |> # used the og data
-  group_by(text) |>
-  ungroup() |>
-  unnest_tokens(word, text)
-
-key_elden_word_counts <- key_elden_tidy |>
-  inner_join(get_sentiments("bing")) |>
-  count(word, sentiment, sort = T) |>
-  anti_join(custom) |> # applied the custom dict to clean data
-  group_by(sentiment) |>
-  ungroup()
-
-# plotting
-key_elden_word_counts |>
-  group_by(sentiment) |>
-  top_n(10) |>
-  ungroup() |>
-  mutate(word = reorder(word, n)) |>
-  ggplot(aes(n, word, fill = sentiment)) +
-  geom_col(show.legend = F) +
-  geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") +
-  facet_wrap(~sentiment, scales = "free_y") +
-  labs(x = "Contribution to Sentiment",
-       y = NULL)
-  
-# Step 6: Comparison wordclouds
-
-# comparison wordcloud from tutorial 4
-key_elden_tidy %>%
-  inner_join(get_sentiments("bing")) %>%
-  count(word, sentiment, sort = T) %>%
-  acast(word ~ sentiment, value.var = "n", fill = 0) %>% # df to matrix 
-  comparison.cloud(colors = c("darkgreen", "orange"),
-                   max.words = 100, scale = c(3.5, 0.25))
-
-
-
-
 
