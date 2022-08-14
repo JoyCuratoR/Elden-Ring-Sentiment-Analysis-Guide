@@ -94,27 +94,7 @@ reddit_elden_new %>%
   theme_wsj() +
   geom_text(aes(label = n), hjust = 1.2, colour = "white", fontface = "bold") 
 
-
-# Step 5: calculating sentiment
-
-# 5.1 using BING lexicon to compare amount of neg and pos words in all reviews
-pos_neg <- reddit_elden_new %>%
-  select(words) %>%
-  unnest_tokens(output = word, input = words) %>%
-  inner_join(get_sentiments(lexicon = 'bing'))
-
-head(pos_neg)
-
-# plotting the results of how many pos and neg words in all of the reviews
-ggplot(pos_neg, aes(x = sentiment, fill = sentiment)) +
-  geom_bar() +
-  guides(fill = F) +
-  theme_economist() +
-  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1)
-# -- Negative words are a couple hundred above positive words
-# -- neg = 64.61% pos = 35.39%
-
-# 5.2 finding the most common pos and neg words and how much each word contributed
+# 4.4 finding the most common pos and neg words and how much each word contributed
 #to the sentiment
 
 tidy <- reddit_new_data |> # used the og data
@@ -141,3 +121,23 @@ bing_word_counts |>
   facet_wrap(~sentiment, scales = "free_y") +
   labs(x = "Contribution to Sentiment",
        y = NULL)
+
+# Step 5: calculating sentiment
+
+# 5.1 using BING lexicon to compare amount of neg and pos words in all reviews
+pos_neg <- reddit_elden_new %>%
+  select(words) %>%
+  unnest_tokens(output = word, input = words) %>%
+  inner_join(get_sentiments(lexicon = 'bing'))
+
+head(pos_neg)
+
+# plotting the results of how many pos and neg words in all of the reviews
+ggplot(pos_neg, aes(x = sentiment, fill = sentiment)) +
+  geom_bar() +
+  guides(fill = F) +
+  theme_economist() +
+  geom_text(stat = "count", aes(label = after_stat(count)), vjust = 1)
+# -- Negative words are a couple hundred above positive words
+# -- neg = 64.61% pos = 35.39%
+
