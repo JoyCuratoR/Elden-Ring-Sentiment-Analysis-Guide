@@ -258,7 +258,7 @@ So why didn't we used the already fully cleaned dataset instead of having to tok
 
 And the plot will come out to look like this: 
 
-![]4(https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220811191354.png)
+![4](https://github.com/JoyCuratoR/Elden-Ring-Sentiment-Analysis-Guide/blob/main/Pasted%20image%2020220811191354.png)
 
 
 
@@ -318,9 +318,7 @@ As we can see, 61.43% of the sentiment is negative while only 38.57% is positive
 ### 4.2 Finding the Sentiment Ratio of the Elden Ring Game
 It's important to note that the data gathered for both sets was gathered on the same day for consistency. 
 
-Finding the sentiment ratio of the game is much like what we did with the bosses. 
-
-We begin by collecting the data from Reddit but this time we don't use any keywords. 
+Finding the sentiment ratio of the game is much like what we did with the bosses. We begin by collecting the data from Reddit but this time we don't use any keywords. 
 
 ``` r
 # Step 1: collecting raw data
@@ -512,6 +510,7 @@ positive <- (258/total) * 100
 
 Results: 
 Negative = 64.61% 
+
 Positive = 35.39%
 
 ## Phase 5: Finding How Much the Bosses Contribute to the Game's Sentiment 
