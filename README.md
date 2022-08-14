@@ -509,6 +509,7 @@ positive <- (258/total) * 100
 ```
 
 Results: 
+
 Negative = 64.61% 
 
 Positive = 35.39%
